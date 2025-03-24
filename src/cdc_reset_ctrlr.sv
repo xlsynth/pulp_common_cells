@@ -368,7 +368,7 @@ module cdc_reset_ctrlr_half
     endcase
   end
 
-  always_ff @(posedge clk_i, negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       if (CLEAR_ON_ASYNC_RESET) begin
         initiator_state_q <= ISOLATE; // Start in the ISOLATE state which is
@@ -435,7 +435,7 @@ module cdc_reset_ctrlr_half
     .async_data_i(async_next_phase_i)
   );
 
-  always_ff @(posedge clk_i, negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       receiver_phase_q <= CLEAR_PHASE_IDLE;
     end else if (receiver_phase_req && receiver_phase_ack) begin

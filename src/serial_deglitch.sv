@@ -24,7 +24,7 @@ module serial_deglitch #(
     logic [SIZE-1:0] count_q;
     logic q;
 
-    always_ff @(posedge clk_i or negedge rst_ni) begin
+    always_ff @(posedge clk_i) begin
         if (~rst_ni) begin
             count_q <= '0;
             q       <= 1'b0;

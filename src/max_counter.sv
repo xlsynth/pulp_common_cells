@@ -64,7 +64,7 @@ module max_counter #(
 
     assign overflow_max_o = overflow_max_q;
 
-    always_ff @(posedge clk_i, negedge rst_ni) begin
+    always_ff @(posedge clk_i) begin
         if (!rst_ni) begin
            max_q <= '0;
            overflow_max_q <= 1'b0;

@@ -159,7 +159,7 @@ module cdc_2phase_clearable #(
 
   // Just delay the isolate request by one cycle. We can ensure isolation within
   // one cycle by just deasserting valid and ready signals on both sides of the CDC.
-  always_ff @(posedge src_clk_i, negedge src_rst_ni) begin
+  always_ff @(posedge src_clk_i) begin
     if (!src_rst_ni) begin
       s_src_isolate_ack_q <= 1'b0;
       s_src_clear_ack_q   <= 1'b0;
@@ -169,7 +169,7 @@ module cdc_2phase_clearable #(
     end
   end
 
-  always_ff @(posedge dst_clk_i, negedge dst_rst_ni) begin
+  always_ff @(posedge dst_clk_i) begin
     if (!dst_rst_ni) begin
       s_dst_isolate_ack_q <= 1'b0;
       s_dst_clear_ack_q   <= 1'b0;
@@ -242,7 +242,7 @@ module cdc_2phase_src_clearable #(
 
   `FFNR(data_src_q, data_src_d, clk_i)
 
-  always_ff @(posedge clk_i or negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       req_src_q  <= 0;
     end else begin
@@ -319,7 +319,7 @@ module cdc_2phase_dst_clearable #(
 
   `FFNR(data_dst_q, data_dst_d, clk_i)
 
-  always_ff @(posedge clk_i or negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       ack_dst_q     <= 0;
       req_synced_q1 <= 1'b0;

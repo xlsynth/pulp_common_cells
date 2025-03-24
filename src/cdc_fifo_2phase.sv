@@ -88,7 +88,7 @@ module cdc_fifo_2phase #(
   assign fifo_rdata = fifo_data_q[fifo_ridx];
 
   for (genvar i = 0; i < 2**LOG_DEPTH; i++) begin : g_word
-    always_ff @(posedge src_clk_i, negedge src_rst_ni) begin
+    always_ff @(posedge src_clk_i) begin
       if (!src_rst_ni)
         fifo_data_q[i] <= T'('0);
       else if (fifo_write && fifo_widx == i)
@@ -99,14 +99,14 @@ module cdc_fifo_2phase #(
   // Allocate the read and write pointers in the source and destination domain.
   pointer_t src_wptr_q, dst_wptr, src_rptr, dst_rptr_q;
 
-  always_ff @(posedge src_clk_i, negedge src_rst_ni) begin
+  always_ff @(posedge src_clk_i) begin
     if (!src_rst_ni)
       src_wptr_q <= 0;
     else if (src_valid_i && src_ready_o)
       src_wptr_q <= src_wptr_q + 1;
   end
 
-  always_ff @(posedge dst_clk_i, negedge dst_rst_ni) begin
+  always_ff @(posedge dst_clk_i) begin
     if (!dst_rst_ni)
       dst_rptr_q <= 0;
     else if (dst_valid_o && dst_ready_i)

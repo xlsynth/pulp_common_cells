@@ -42,7 +42,7 @@ module credit_counter #(
     else if (increment) credit_d = credit_q + 1;
   end
 
-  `FFARNC(credit_q, credit_d, credit_init_i, InitNumCredits, clk_i, rst_ni)
+  `FFSR(credit_q, credit_d, InitNumCredits, clk_i, (credit_init_i || ~rst_ni))
 
   assign credit_o       = credit_q;
   assign credit_left_o  = (credit_q != '0);

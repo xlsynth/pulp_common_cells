@@ -25,7 +25,7 @@ module edge_propagator_tx (
 
     assign s_input_reg_next = valid_i | (r_input_reg & ~sync_a[0]);
 
-    always @(negedge rstn_i or posedge clk_i) begin
+    always @(posedge clk_i) begin
         if (~rstn_i) begin
             r_input_reg <= 1'b0;
             sync_a      <= 2'b00;

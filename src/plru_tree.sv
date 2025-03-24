@@ -112,7 +112,7 @@ module plru_tree #(
         end
     end
 
-    always_ff @(posedge clk_i or negedge rst_ni) begin
+    always_ff @(posedge clk_i) begin
         if (!rst_ni) begin
             plru_tree_q <= '0;
         end else begin

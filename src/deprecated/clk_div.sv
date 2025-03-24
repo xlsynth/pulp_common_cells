@@ -23,7 +23,7 @@ module clk_div #(
     logic [RATIO-1:0] counter_q;
     logic clk_q;
 
-    always_ff @(posedge clk_i or negedge rst_ni) begin
+    always_ff @(posedge clk_i) begin
         if (~rst_ni) begin
             clk_q       <= 1'b0;
             counter_q <= '0;

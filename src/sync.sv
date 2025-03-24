@@ -24,7 +24,7 @@ module sync #(
    (* async_reg = "true" *)
    logic [STAGES-1:0] reg_q;
 
-    always_ff @(posedge clk_i, negedge rst_ni) begin
+    always_ff @(posedge clk_i) begin
         if (!rst_ni) begin
             reg_q <= {STAGES{ResetValue}};
         end else begin

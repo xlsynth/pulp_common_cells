@@ -228,7 +228,7 @@ module cdc_fifo_gray_clearable #(
 
   // Just delay the isolate request by one cycle. We can ensure isolation within
   // one cycle by just deasserting valid and ready signals on both sides of the CDC.
-  always_ff @(posedge src_clk_i, negedge src_rst_ni) begin
+  always_ff @(posedge src_clk_i) begin
     if (!src_rst_ni) begin
       s_src_isolate_ack_q <= 1'b0;
       s_src_clear_ack_q   <= 1'b0;
@@ -238,7 +238,7 @@ module cdc_fifo_gray_clearable #(
     end
   end
 
-  always_ff @(posedge dst_clk_i, negedge dst_rst_ni) begin
+  always_ff @(posedge dst_clk_i) begin
     if (!dst_rst_ni) begin
       s_dst_isolate_ack_q <= 1'b0;
       s_dst_clear_ack_q   <= 1'b0;
@@ -310,7 +310,7 @@ module cdc_fifo_gray_src_clearable #(
   assign wptr_next = wptr_bin+1;
   gray_to_binary #(PtrWidth) i_wptr_g2b (.A(wptr_q), .Z(wptr_bin));
   binary_to_gray #(PtrWidth) i_wptr_b2g (.A(wptr_next), .Z(wptr_d));
-  `FFLARNC(wptr_q, wptr_d, src_valid_i & src_ready_o, src_clear_i, '0, src_clk_i, src_rst_ni)
+  `FFLSR(wptr_q, wptr_d, src_valid_i & src_ready_o, '0, src_clk_i, (src_clear_i || ~src_rst_ni))
   assign async_wptr_o = wptr_q;
 
   // The pointers into the FIFO are one bit wider than the actual address into
@@ -354,7 +354,7 @@ module cdc_fifo_gray_dst_clearable #(
   assign rptr_next = rptr_bin+1;
   gray_to_binary #(PtrWidth) i_rptr_g2b (.A(rptr_q), .Z(rptr_bin));
   binary_to_gray #(PtrWidth) i_rptr_b2g (.A(rptr_next), .Z(rptr_d));
-  `FFLARNC(rptr_q, rptr_d, dst_valid & dst_ready, dst_clear_i, '0, dst_clk_i, dst_rst_ni)
+  `FFLSR(rptr_q, rptr_d, dst_valid & dst_ready, '0, dst_clk_i, (dst_clear_i || ~dst_rst_ni))
   assign async_rptr_o = rptr_q;
 
   // Write pointer.

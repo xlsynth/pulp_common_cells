@@ -149,7 +149,7 @@ module rr_arb_tree #(
         assign lock_d     = req_o & ~gnt_i;
         assign req_d      = (lock_q) ? req_q : req_i;
 
-        always_ff @(posedge clk_i or negedge rst_ni) begin : p_lock_reg
+        always_ff @(posedge clk_i) begin : p_lock_reg
           if (!rst_ni) begin
             lock_q <= '0;
           end else begin
@@ -172,7 +172,7 @@ module rr_arb_tree #(
                   "It is disallowed to deassert unserved request signals when LockIn is enabled.")
         `endif
 
-        always_ff @(posedge clk_i or negedge rst_ni) begin : p_req_regs
+        always_ff @(posedge clk_i) begin : p_req_regs
           if (!rst_ni) begin
             req_q  <= '0;
           end else begin
@@ -223,7 +223,7 @@ module rr_arb_tree #(
       end
 
       // this holds the highest priority
-      always_ff @(posedge clk_i or negedge rst_ni) begin : p_rr_regs
+      always_ff @(posedge clk_i) begin : p_rr_regs
         if (!rst_ni) begin
           rr_q   <= '0;
         end else begin

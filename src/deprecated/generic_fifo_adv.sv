@@ -81,7 +81,7 @@ module generic_fifo_adv
 `endif
    
    // UPDATE THE STATE
-   always_ff @(posedge clk, negedge rst_n)
+   always_ff @(posedge clk)
      begin
 	if(rst_n == 1'b0)
 	  begin
@@ -245,7 +245,7 @@ module generic_fifo_adv
 	endcase
      end
    
-   always_ff @(posedge clk_gated, negedge rst_n)
+   always_ff @(posedge clk_gated)
      begin
 	if(rst_n == 1'b0)
 	  begin

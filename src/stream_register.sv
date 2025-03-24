@@ -34,7 +34,7 @@ module stream_register #(
     assign ready_o = ready_i | ~valid_o;
     assign reg_ena = valid_i & ready_o;
     // Load-enable FFs with synch clear
-    `FFLARNC(valid_o, valid_i, ready_o, clr_i, 1'b0  , clk_i, rst_ni)
-    `FFLARNC(data_o,   data_i, reg_ena, clr_i, T'('0), clk_i, rst_ni)
+    `FFLSR(valid_o, valid_i, ready_o, 1'b0  , clk_i, (clr_i || ~rst_ni))
+    `FFLSR(data_o, data_i, reg_ena, T'('0), clk_i, (clr_i || ~rst_ni))
 
 endmodule

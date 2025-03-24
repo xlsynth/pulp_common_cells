@@ -34,7 +34,7 @@ module generic_LFSR_8bit
    
    assign data_BIN_o = temp_ref_way;
    
-   always_ff @(posedge clk, negedge rst_n)
+   always_ff @(posedge clk)
      begin
 	if (rst_n == 1'b0)
 	  begin

@@ -44,7 +44,7 @@ module pulp_sync_wedge #(
         .clk_o     ( clk )
     );
 
-    always_ff @(posedge clk, negedge rstn_i) begin
+    always_ff @(posedge clk) begin
         if (!rstn_i) begin
             serial_q <= 1'b0;
         end else begin

@@ -50,7 +50,7 @@ module rstgen_bypass #(
         .clk_o      ( init_no )
     );
 
-    always @(posedge clk_i or negedge rst_n) begin
+    always @(posedge clk_i) begin
         if (~rst_n) begin
             synch_regs_q <= 0;
         end else begin

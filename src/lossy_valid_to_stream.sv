@@ -120,7 +120,7 @@ module lossy_valid_to_stream #(
   end
 
   // Registers
-  always_ff @(posedge clk_i, negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       read_ptr_q           <= '0;
       write_ptr_q          <= '0;

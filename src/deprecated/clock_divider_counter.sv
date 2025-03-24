@@ -107,7 +107,7 @@ module clock_divider_counter
                 en2 = 1'b0;
     end
 
-   always_ff @(posedge clk, negedge rstn)
+   always_ff @(posedge clk)
    begin
         if (~rstn)
         begin
@@ -178,7 +178,7 @@ module clock_divider_counter
    assign clk_inv_test = clk_inv;
 `endif
 
-    always_ff @(posedge clk_inv_test or negedge rstn)
+    always_ff @(posedge clk_inv_test)
     begin
         if (!rstn)
         begin
@@ -191,7 +191,7 @@ module clock_divider_counter
             else if (en2 && is_odd && !bypass)
                     div2 <= ~div2;
         end
-    end // always_ff @ (posedge clk_inv_test or negedge rstn)
+    end // always_ff @ (posedge clk_inv_test)
 
     pulp_clock_xor2 clock_xor_i
     (

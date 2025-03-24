@@ -108,7 +108,7 @@ module cdc_2phase_src #(
   T data_src_q;
 
   // The req_src and data_src registers change when a new data item is accepted.
-  always_ff @(posedge clk_i or negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       req_src_q  <= 0;
       data_src_q <= T'('0);
@@ -119,7 +119,7 @@ module cdc_2phase_src #(
   end
 
   // The ack_src and ack registers act as synchronization stages.
-  always_ff @(posedge clk_i or negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       ack_src_q <= 0;
       ack_q     <= 0;
@@ -159,7 +159,7 @@ module cdc_2phase_dst #(
   T data_dst_q;
 
   // The ack_dst register changes when a new data item is accepted.
-  always_ff @(posedge clk_i or negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       ack_dst_q  <= 0;
     end else if (valid_o && ready_i) begin
@@ -169,7 +169,7 @@ module cdc_2phase_dst #(
 
   // The data_dst register changes when a new data item is presented. This is
   // indicated by the async_req line changing levels.
-  always_ff @(posedge clk_i or negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       data_dst_q <= T'('0);
     end else if (req_q0 != req_q1 && !valid_o) begin
@@ -178,7 +178,7 @@ module cdc_2phase_dst #(
   end
 
   // The req_dst and req registers act as synchronization stages.
-  always_ff @(posedge clk_i or negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       req_dst_q <= 0;
       req_q0    <= 0;

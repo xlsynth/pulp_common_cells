@@ -391,7 +391,7 @@ module id_queue #(
 
     // Registers
     for (genvar i = 0; i < HtCapacity; i++) begin: gen_ht_ffs
-        always_ff @(posedge clk_i, negedge rst_ni) begin
+        always_ff @(posedge clk_i) begin
             if (!rst_ni) begin
                 head_tail_q[i] <= '{free: 1'b1, default: '0};
             end else begin
@@ -400,7 +400,7 @@ module id_queue #(
         end
     end
     for (genvar i = 0; i < CAPACITY; i++) begin: gen_data_ffs
-        always_ff @(posedge clk_i, negedge rst_ni) begin
+        always_ff @(posedge clk_i) begin
             if (!rst_ni) begin
                 // Set free bit of linked data entries, all other bits are don't care.
                 linked_data_q[i]    <= '0;

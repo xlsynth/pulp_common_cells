@@ -238,7 +238,7 @@ logic [LfsrWidth-1:0] lfsr_d, lfsr_q;
 assign lfsr_d =
   (en_i) ? (lfsr_q>>1) ^ ({LfsrWidth{lfsr_q[0]}} & Masks[LfsrWidth][LfsrWidth-1:0]) : lfsr_q;
 
-always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs
+always_ff @(posedge clk_i) begin : p_regs
   //$display("%b %h", en_i, lfsr_d);
   if (!rst_ni) begin
     lfsr_q <= LfsrWidth'(RstVal);
@@ -271,7 +271,7 @@ if (CipherLayers > unsigned'(0)) begin : g_cipher_layers
     assign out_d = (en_i) ? ciph_layer[OutWidth-1:0] : out_q;
     assign out_o = out_q[OutWidth-1:0];
 
-    always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs
+    always_ff @(posedge clk_i) begin : p_regs
       if (!rst_ni) begin
         out_q <= '0;
       end else begin

@@ -165,7 +165,7 @@ module clk_mux_glitch_free #(
     assign glitch_filter_d[i][1] = glitch_filter_q[i][0];
 
     // Filter HIGH-pulse glitches
-    always_ff @(posedge clks_i[i], negedge s_reset_synced[i]) begin
+    always_ff @(posedge clks_i[i]) begin
       if (!s_reset_synced[i]) begin
         glitch_filter_q[i] <= '0;
       end else begin
@@ -189,7 +189,7 @@ module clk_mux_glitch_free #(
     // gate enable signal to the clock gate for as long as the reset is active.
 
     if (CLOCK_DURING_RESET) begin : gen_async_reset_clock_bypass_logic
-      always_ff @(posedge clks_i[i], negedge s_reset_synced[i]) begin
+      always_ff @(posedge clks_i[i]) begin
         if (!s_reset_synced[i]) begin
           async_reset_bypass_active_q[i] <= 1'b1;
         end else begin
@@ -224,7 +224,7 @@ module clk_mux_glitch_free #(
     // least one clock period of the original clock input before any other clock
     // even has the chance to become active.
 
-    always_ff @(posedge clks_i[i], negedge s_reset_synced[i]) begin
+    always_ff @(posedge clks_i[i]) begin
       if (!s_reset_synced[i]) begin
         clock_has_been_disabled_q[i] <= 1'b1;
       end else begin

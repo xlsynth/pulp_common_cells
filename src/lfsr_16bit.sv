@@ -52,7 +52,7 @@ module lfsr_16bit #(
         refill_way_bin = shift_q;
     end
 
-    always_ff @(posedge clk_i or negedge rst_ni) begin : proc_
+    always_ff @(posedge clk_i) begin : proc_
         if(~rst_ni) begin
             shift_q <= SEED;
         end else begin

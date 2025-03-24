@@ -162,7 +162,7 @@ module clock_divider
         endcase
     end
 
-    always_ff @(posedge clk_i or negedge s_rstn_sync)
+    always_ff @(posedge clk_i)
     begin
         if (!s_rstn_sync)
             state <= IDLE;
@@ -171,7 +171,7 @@ module clock_divider
     end
 
     //sample the data when valid has been sync and there is a rise edge
-    always_ff @(posedge clk_i or negedge s_rstn_sync)
+    always_ff @(posedge clk_i)
     begin
         if (!s_rstn_sync)
             reg_clk_div <= '0;
@@ -180,7 +180,7 @@ module clock_divider
     end
 
     //sample the data when valid has been sync and there is a rise edge
-    always_ff @(posedge clk_i or negedge s_rstn_sync)
+    always_ff @(posedge clk_i)
     begin
         if (!s_rstn_sync)
             reg_ext_gate_sync <= 2'b00;

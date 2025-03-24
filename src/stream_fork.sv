@@ -71,7 +71,7 @@ module stream_fork #(
         endcase
     end
 
-    always_ff @(posedge clk_i, negedge rst_ni) begin
+    always_ff @(posedge clk_i) begin
         if (!rst_ni) begin
             inp_state_q <= READY;
         end else begin
@@ -112,7 +112,7 @@ module stream_fork #(
             endcase
         end
 
-        always_ff @(posedge clk_i, negedge rst_ni) begin
+        always_ff @(posedge clk_i) begin
             if (!rst_ni) begin
                 oup_state_q <= READY;
             end else begin

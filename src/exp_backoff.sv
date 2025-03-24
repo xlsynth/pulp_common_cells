@@ -67,7 +67,7 @@ module exp_backoff #(
 
   assign is_zero_o = (cnt_q=='0);
 
-  always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs
+  always_ff @(posedge clk_i) begin : p_regs
     if (!rst_ni) begin
       lfsr_q <= WIDTH'(Seed);
       mask_q <= '0;

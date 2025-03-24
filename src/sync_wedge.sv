@@ -44,7 +44,7 @@ module sync_wedge #(
         .clk_o     ( clk  )
     );
 
-    always_ff @(posedge clk, negedge rst_ni) begin
+    always_ff @(posedge clk) begin
         if (!rst_ni) begin
             serial_q <= 1'b0;
         end else begin

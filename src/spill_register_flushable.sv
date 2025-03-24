@@ -40,14 +40,14 @@ module spill_register_flushable #(
     logic a_full_q;
     logic a_fill, a_drain;
 
-    always_ff @(posedge clk_i or negedge rst_ni) begin : ps_a_data
+    always_ff @(posedge clk_i) begin : ps_a_data
       if (!rst_ni)
         a_data_q <= T'('0);
       else if (a_fill)
         a_data_q <= data_i;
     end
 
-    always_ff @(posedge clk_i or negedge rst_ni) begin : ps_a_full
+    always_ff @(posedge clk_i) begin : ps_a_full
       if (!rst_ni)
         a_full_q <= 0;
       else if (a_fill || a_drain)
@@ -59,14 +59,14 @@ module spill_register_flushable #(
     logic b_full_q;
     logic b_fill, b_drain;
 
-    always_ff @(posedge clk_i or negedge rst_ni) begin : ps_b_data
+    always_ff @(posedge clk_i) begin : ps_b_data
       if (!rst_ni)
         b_data_q <= T'('0);
       else if (b_fill)
         b_data_q <= a_data_q;
     end
 
-    always_ff @(posedge clk_i or negedge rst_ni) begin : ps_b_full
+    always_ff @(posedge clk_i) begin : ps_b_full
       if (!rst_ni)
         b_full_q <= 0;
       else if (b_fill || b_drain)

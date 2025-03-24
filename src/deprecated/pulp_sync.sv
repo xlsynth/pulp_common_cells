@@ -23,7 +23,7 @@ module pulp_sync
    
    logic [STAGES-1:0] r_reg;
    
-   always_ff @(posedge clk_i, negedge rstn_i)
+   always_ff @(posedge clk_i)
      begin
 	if(!rstn_i)
           r_reg <= 'h0;

@@ -68,7 +68,7 @@ module prioarbiter #(
     assign arb_sel_lock_d = '0;
   end
 
-  always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs
+  always_ff @(posedge clk_i) begin : p_regs
     if (!rst_ni) begin
       lock_q         <= 1'b0;
       arb_sel_lock_q <= '0;

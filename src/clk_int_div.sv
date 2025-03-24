@@ -226,7 +226,7 @@ module clk_int_div #(
   localparam logic UseOddDivisionResetValue = DEFAULT_DIV_VALUE[0];
   localparam logic ClkDivBypassEnResetValue = (DEFAULT_DIV_VALUE < 2)? 1'b1: 1'b0;
 
-  always_ff @(posedge clk_i, negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       use_odd_division_q  <= UseOddDivisionResetValue;
       clk_div_bypass_en_q <= ClkDivBypassEnResetValue;
@@ -264,7 +264,7 @@ module clk_int_div #(
     end
   end
 
-  always_ff @(posedge clk_i, negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       cycle_cntr_q <= '0;
     end else begin
@@ -285,7 +285,7 @@ module clk_int_div #(
   // Verilog and System Verilog gotchas: 101 common coding errors and how to
   // avoid them. New York: Springer, 2007. page 64.
 
-  always_ff @(posedge clk_i, negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       t_ff1_q = '0; // Intentional blocking assignment! Do not replace!
     end else begin
@@ -297,7 +297,7 @@ module clk_int_div #(
 
   // The second flip-flop is required for odd integer division and needs to
   // negative edge tirggered.
-  always_ff @(negedge clk_i, negedge rst_ni) begin
+  always_ff @(negedge clk_i) begin
     if (!rst_ni) begin
       t_ff2_q = '0; // Intentional blocking assignment! Do not replace!
     end else begin
@@ -369,7 +369,7 @@ module clk_int_div #(
   // The FSM needs to know this to not disable the T-FFs and the cycle counter
   // to early. Otherwise the clock might get stuck active high or we deassert a
   // clock to early
-  always_ff @(posedge ungated_output_clock, negedge rst_ni) begin
+  always_ff @(posedge ungated_output_clock) begin
     if (!rst_ni) begin
       gate_is_open_q <= 1'b0;
     end else begin

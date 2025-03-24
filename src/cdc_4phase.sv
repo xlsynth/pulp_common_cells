@@ -169,7 +169,7 @@ module cdc_4phase_src #(
     endcase
   end
 
-  always_ff @(posedge clk_i, negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       state_q <= IDLE;
     end else begin
@@ -178,7 +178,7 @@ module cdc_4phase_src #(
   end
 
   // Sample the data and the request signal to filter combinational glitches
-  always_ff @(posedge clk_i or negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       if (SEND_RESET_MSG) begin
         req_src_q  <= 1'b1;
@@ -281,7 +281,7 @@ module cdc_4phase_dst #(
     endcase
   end
 
-  always_ff @(posedge clk_i, negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       state_q <= IDLE;
     end else begin
@@ -290,7 +290,7 @@ module cdc_4phase_dst #(
   end
 
   // Filter glitches on ack signal before sending it through the asynchronous channel
-  always_ff @(posedge clk_i, negedge rst_ni) begin
+  always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
       ack_dst_q <= 1'b0;
     end else begin
